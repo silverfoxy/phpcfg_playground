@@ -1,0 +1,502 @@
+
+Block#1
+    Var#1<$_REQUEST> = Phi()
+    Var#2<$_GET> = Phi()
+    Var#3<$_POST> = Phi()
+    Expr_ConstFetch
+        name: LITERAL('true')
+        result: Var#4
+    Expr_FuncCall
+        name: LITERAL('define')
+        args[0]: LITERAL('DOING_AJAX')
+        args[1]: Var#4
+        result: Var#5
+    Expr_FuncCall
+        name: LITERAL('defined')
+        args[0]: LITERAL('WP_ADMIN')
+        result: Var#6
+    Expr_BooleanNot
+        expr: Var#6
+        result: Var#7
+    Stmt_JumpIf
+        cond: Var#7
+        if: Block#2
+        else: Block#3
+
+Block#2
+    Parent: Block#1
+    Expr_ConstFetch
+        name: LITERAL('true')
+        result: Var#8
+    Expr_FuncCall
+        name: LITERAL('define')
+        args[0]: LITERAL('WP_ADMIN')
+        args[1]: Var#8
+        result: Var#9
+    Stmt_Jump
+        target: Block#4
+
+Block#3
+    Parent: Block#1
+    Stmt_Jump
+        target: Block#4
+
+Block#4
+    Parent: Block#2
+    Parent: Block#3
+    Var#10<$_REQUEST> = Phi(Var#1<$_REQUEST>)
+    Var#11<$_GET> = Phi(Var#2<$_GET>)
+    Var#12<$_POST> = Phi(Var#3<$_POST>)
+    Expr_FuncCall
+        name: LITERAL('dirname')
+        args[0]: LITERAL('./admin-ajax.php')
+        result: Var#13
+    Expr_FuncCall
+        name: LITERAL('dirname')
+        args[0]: Var#13
+        result: Var#14
+    Expr_BinaryOp_Concat
+        left: Var#14
+        right: LITERAL('/wp-load.php')
+        result: Var#15
+    Expr_Include
+        expr: Var#15
+        result: Var#16
+    Expr_FuncCall
+        name: LITERAL('send_origin_headers')
+        result: Var#17
+    Expr_ArrayDimFetch
+        var: Var#10<$_REQUEST>
+        dim: LITERAL('action')
+        result: Var#18
+    Expr_Empty
+        expr: Var#18
+        result: Var#19
+    Stmt_JumpIf
+        cond: Var#19
+        if: Block#5
+        else: Block#6
+
+Block#5
+    Parent: Block#4
+    Expr_Exit
+        expr: LITERAL('0')
+        result: Var#20
+    Stmt_Jump
+        target: Block#7
+
+Block#6
+    Parent: Block#4
+    Stmt_Jump
+        target: Block#7
+
+Block#7
+    Parent: Block#5
+    Parent: Block#6
+    Var#21<$_GET> = Phi(Var#11<$_GET>)
+    Var#22<$_POST> = Phi(Var#12<$_POST>)
+    Var#23<$_REQUEST> = Phi(Var#10<$_REQUEST>)
+    Expr_ConstFetch
+        name: LITERAL('ABSPATH')
+        result: Var#24
+    Expr_BinaryOp_Concat
+        left: Var#24
+        right: LITERAL('wp-admin/includes/admin.php')
+        result: Var#25
+    Expr_Include
+        expr: Var#25
+        result: Var#26
+    Expr_ConstFetch
+        name: LITERAL('ABSPATH')
+        result: Var#27
+    Expr_BinaryOp_Concat
+        left: Var#27
+        right: LITERAL('wp-admin/includes/ajax-actions.php')
+        result: Var#28
+    Expr_Include
+        expr: Var#28
+        result: Var#29
+    Stmt_Jump
+        target: Block#8
+
+Block#8
+    Parent: Block#7
+    Expr_FuncCall
+        name: LITERAL('get_option')
+        args[0]: LITERAL('blog_charset')
+        result: Var#30
+    Expr_BinaryOp_Concat
+        left: LITERAL('Content-Type: text/html; charset=')
+        right: Var#30
+        result: Var#31
+    Expr_FuncCall
+        name: LITERAL('header')
+        args[0]: Var#31
+        result: Var#32
+    Stmt_Jump
+        target: Block#9
+
+Block#9
+    Parent: Block#8
+    Stmt_Jump
+        target: Block#10
+
+Block#10
+    Parent: Block#9
+    Expr_FuncCall
+        name: LITERAL('header')
+        args[0]: LITERAL('X-Robots-Tag: noindex')
+        result: Var#33
+    Stmt_Jump
+        target: Block#11
+
+Block#11
+    Parent: Block#10
+    Var#34<$_GET> = Phi(Var#21<$_GET>)
+    Expr_FuncCall
+        name: LITERAL('send_nosniff_header')
+        result: Var#35
+    Expr_FuncCall
+        name: LITERAL('nocache_headers')
+        result: Var#36
+    Expr_FuncCall
+        name: LITERAL('do_action')
+        args[0]: LITERAL('admin_init')
+        result: Var#37
+    Expr_Array
+        values[0]: LITERAL('fetch-list')
+        values[1]: LITERAL('ajax-tag-search')
+        values[2]: LITERAL('wp-compression-test')
+        values[3]: LITERAL('imgedit-preview')
+        values[4]: LITERAL('oembed-cache')
+        values[5]: LITERAL('autocomplete-user')
+        values[6]: LITERAL('dashboard-widgets')
+        values[7]: LITERAL('logged-in')
+        result: Var#38
+    Expr_Assign
+        var: Var#39<$core_actions_get>
+        expr: Var#38
+        result: Var#40
+    Expr_Array
+        values[0]: LITERAL('oembed-cache')
+        values[1]: LITERAL('image-editor')
+        values[2]: LITERAL('delete-comment')
+        values[3]: LITERAL('delete-tag')
+        values[4]: LITERAL('delete-link')
+        values[5]: LITERAL('delete-meta')
+        values[6]: LITERAL('delete-post')
+        values[7]: LITERAL('trash-post')
+        values[8]: LITERAL('untrash-post')
+        values[9]: LITERAL('delete-page')
+        values[10]: LITERAL('dim-comment')
+        values[11]: LITERAL('add-link-category')
+        values[12]: LITERAL('add-tag')
+        values[13]: LITERAL('get-tagcloud')
+        values[14]: LITERAL('get-comments')
+        values[15]: LITERAL('replyto-comment')
+        values[16]: LITERAL('edit-comment')
+        values[17]: LITERAL('add-menu-item')
+        values[18]: LITERAL('add-meta')
+        values[19]: LITERAL('add-user')
+        values[20]: LITERAL('closed-postboxes')
+        values[21]: LITERAL('hidden-columns')
+        values[22]: LITERAL('update-welcome-panel')
+        values[23]: LITERAL('menu-get-metabox')
+        values[24]: LITERAL('wp-link-ajax')
+        values[25]: LITERAL('menu-locations-save')
+        values[26]: LITERAL('menu-quick-search')
+        values[27]: LITERAL('meta-box-order')
+        values[28]: LITERAL('get-permalink')
+        values[29]: LITERAL('sample-permalink')
+        values[30]: LITERAL('inline-save')
+        values[31]: LITERAL('inline-save-tax')
+        values[32]: LITERAL('find_posts')
+        values[33]: LITERAL('widgets-order')
+        values[34]: LITERAL('save-widget')
+        values[35]: LITERAL('delete-inactive-widgets')
+        values[36]: LITERAL('set-post-thumbnail')
+        values[37]: LITERAL('date_format')
+        values[38]: LITERAL('time_format')
+        values[39]: LITERAL('wp-remove-post-lock')
+        values[40]: LITERAL('dismiss-wp-pointer')
+        values[41]: LITERAL('upload-attachment')
+        values[42]: LITERAL('get-attachment')
+        values[43]: LITERAL('query-attachments')
+        values[44]: LITERAL('save-attachment')
+        values[45]: LITERAL('save-attachment-compat')
+        values[46]: LITERAL('send-link-to-editor')
+        values[47]: LITERAL('send-attachment-to-editor')
+        values[48]: LITERAL('save-attachment-order')
+        values[49]: LITERAL('heartbeat')
+        values[50]: LITERAL('get-revision-diffs')
+        values[51]: LITERAL('save-user-color-scheme')
+        values[52]: LITERAL('update-widget')
+        values[53]: LITERAL('query-themes')
+        values[54]: LITERAL('parse-embed')
+        values[55]: LITERAL('set-attachment-thumbnail')
+        values[56]: LITERAL('parse-media-shortcode')
+        values[57]: LITERAL('destroy-sessions')
+        values[58]: LITERAL('install-plugin')
+        values[59]: LITERAL('update-plugin')
+        values[60]: LITERAL('press-this-save-post')
+        values[61]: LITERAL('press-this-add-category')
+        values[62]: LITERAL('crop-image')
+        values[63]: LITERAL('generate-password')
+        values[64]: LITERAL('save-wporg-username')
+        values[65]: LITERAL('delete-plugin')
+        values[66]: LITERAL('search-plugins')
+        values[67]: LITERAL('search-install-plugins')
+        values[68]: LITERAL('activate-plugin')
+        values[69]: LITERAL('update-theme')
+        values[70]: LITERAL('delete-theme')
+        values[71]: LITERAL('install-theme')
+        values[72]: LITERAL('get-post-thumbnail-html')
+        result: Var#41
+    Expr_Assign
+        var: Var#42<$core_actions_post>
+        expr: Var#41
+        result: Var#43
+    Expr_ArrayDimFetch
+        var: Var#42<$core_actions_post>
+        result: Var#44
+    Expr_Assign
+        var: Var#44
+        expr: LITERAL('wp-fullscreen-save-post')
+        result: Var#45
+    Expr_ArrayDimFetch
+        var: Var#34<$_GET>
+        dim: LITERAL('action')
+        result: Var#46
+    Expr_Empty
+        expr: Var#46
+        result: Var#47
+    Expr_BooleanNot
+        expr: Var#47
+        result: Var#48
+    Stmt_JumpIf
+        cond: Var#48
+        if: Block#12
+        else: Block#13
+
+Block#12
+    Parent: Block#11
+    Var#49<$_GET> = Phi(Var#34<$_GET>)
+    Var#50<$core_actions_get> = Phi(Var#39<$core_actions_get>)
+    Expr_ArrayDimFetch
+        var: Var#49<$_GET>
+        dim: LITERAL('action')
+        result: Var#51
+    Expr_FuncCall
+        name: LITERAL('in_array')
+        args[0]: Var#51
+        args[1]: Var#50<$core_actions_get>
+        result: Var#52
+    Expr_Cast_Bool
+        expr: Var#52
+        result: Var#53
+    Stmt_Jump
+        target: Block#13
+
+Block#13
+    Parent: Block#11
+    Parent: Block#12
+    Var#54 = Phi(LITERAL(false), Var#53)
+    Var#55<$_GET> = Phi(Var#34<$_GET>, Var#49<$_GET>)
+    Var#56<$_POST> = Phi(Var#22<$_POST>)
+    Var#57<$core_actions_post> = Phi(Var#42<$core_actions_post>)
+    Var#58<$_REQUEST> = Phi(Var#23<$_REQUEST>)
+    Stmt_JumpIf
+        cond: Var#54
+        if: Block#14
+        else: Block#15
+
+Block#14
+    Parent: Block#13
+    Var#59<$_GET> = Phi(Var#55<$_GET>)
+    Expr_ArrayDimFetch
+        var: Var#59<$_GET>
+        dim: LITERAL('action')
+        result: Var#60
+    Expr_BinaryOp_Concat
+        left: LITERAL('wp_ajax_')
+        right: Var#60
+        result: Var#61
+    Expr_ArrayDimFetch
+        var: Var#59<$_GET>
+        dim: LITERAL('action')
+        result: Var#62
+    Expr_FuncCall
+        name: LITERAL('str_replace')
+        args[0]: LITERAL('-')
+        args[1]: LITERAL('_')
+        args[2]: Var#62
+        result: Var#63
+    Expr_BinaryOp_Concat
+        left: LITERAL('wp_ajax_')
+        right: Var#63
+        result: Var#64
+    Expr_FuncCall
+        name: LITERAL('add_action')
+        args[0]: Var#61
+        args[1]: Var#64
+        args[2]: LITERAL(1)
+        result: Var#65
+    Stmt_Jump
+        target: Block#16
+
+Block#15
+    Parent: Block#13
+    Stmt_Jump
+        target: Block#16
+
+Block#16
+    Parent: Block#14
+    Parent: Block#15
+    Var#66<$_POST> = Phi(Var#56<$_POST>)
+    Var#67<$core_actions_post> = Phi(Var#57<$core_actions_post>)
+    Var#68<$_REQUEST> = Phi(Var#58<$_REQUEST>)
+    Expr_ArrayDimFetch
+        var: Var#66<$_POST>
+        dim: LITERAL('action')
+        result: Var#69
+    Expr_Empty
+        expr: Var#69
+        result: Var#70
+    Expr_BooleanNot
+        expr: Var#70
+        result: Var#71
+    Stmt_JumpIf
+        cond: Var#71
+        if: Block#17
+        else: Block#18
+
+Block#17
+    Parent: Block#16
+    Var#72<$_POST> = Phi(Var#66<$_POST>)
+    Var#73<$core_actions_post> = Phi(Var#67<$core_actions_post>)
+    Expr_ArrayDimFetch
+        var: Var#72<$_POST>
+        dim: LITERAL('action')
+        result: Var#74
+    Expr_FuncCall
+        name: LITERAL('in_array')
+        args[0]: Var#74
+        args[1]: Var#73<$core_actions_post>
+        result: Var#75
+    Expr_Cast_Bool
+        expr: Var#75
+        result: Var#76
+    Stmt_Jump
+        target: Block#18
+
+Block#18
+    Parent: Block#16
+    Parent: Block#17
+    Var#77 = Phi(LITERAL(false), Var#76)
+    Var#78<$_POST> = Phi(Var#66<$_POST>, Var#72<$_POST>)
+    Var#79<$_REQUEST> = Phi(Var#68<$_REQUEST>)
+    Stmt_JumpIf
+        cond: Var#77
+        if: Block#19
+        else: Block#20
+
+Block#19
+    Parent: Block#18
+    Var#80<$_POST> = Phi(Var#78<$_POST>)
+    Expr_ArrayDimFetch
+        var: Var#80<$_POST>
+        dim: LITERAL('action')
+        result: Var#81
+    Expr_BinaryOp_Concat
+        left: LITERAL('wp_ajax_')
+        right: Var#81
+        result: Var#82
+    Expr_ArrayDimFetch
+        var: Var#80<$_POST>
+        dim: LITERAL('action')
+        result: Var#83
+    Expr_FuncCall
+        name: LITERAL('str_replace')
+        args[0]: LITERAL('-')
+        args[1]: LITERAL('_')
+        args[2]: Var#83
+        result: Var#84
+    Expr_BinaryOp_Concat
+        left: LITERAL('wp_ajax_')
+        right: Var#84
+        result: Var#85
+    Expr_FuncCall
+        name: LITERAL('add_action')
+        args[0]: Var#82
+        args[1]: Var#85
+        args[2]: LITERAL(1)
+        result: Var#86
+    Stmt_Jump
+        target: Block#21
+
+Block#20
+    Parent: Block#18
+    Stmt_Jump
+        target: Block#21
+
+Block#21
+    Parent: Block#19
+    Parent: Block#20
+    Var#87<$_REQUEST> = Phi(Var#79<$_REQUEST>)
+    Expr_FuncCall
+        name: LITERAL('add_action')
+        args[0]: LITERAL('wp_ajax_nopriv_heartbeat')
+        args[1]: LITERAL('wp_ajax_nopriv_heartbeat')
+        args[2]: LITERAL(1)
+        result: Var#88
+    Expr_FuncCall
+        name: LITERAL('is_user_logged_in')
+        result: Var#89
+    Stmt_JumpIf
+        cond: Var#89
+        if: Block#22
+        else: Block#23
+
+Block#22
+    Parent: Block#21
+    Var#90<$_REQUEST> = Phi(Var#87<$_REQUEST>)
+    Expr_ArrayDimFetch
+        var: Var#90<$_REQUEST>
+        dim: LITERAL('action')
+        result: Var#91
+    Expr_BinaryOp_Concat
+        left: LITERAL('wp_ajax_')
+        right: Var#91
+        result: Var#92
+    Expr_FuncCall
+        name: LITERAL('do_action')
+        args[0]: Var#92
+        result: Var#93
+    Stmt_Jump
+        target: Block#24
+
+Block#23
+    Parent: Block#21
+    Var#94<$_REQUEST> = Phi(Var#87<$_REQUEST>)
+    Expr_ArrayDimFetch
+        var: Var#94<$_REQUEST>
+        dim: LITERAL('action')
+        result: Var#95
+    Expr_BinaryOp_Concat
+        left: LITERAL('wp_ajax_nopriv_')
+        right: Var#95
+        result: Var#96
+    Expr_FuncCall
+        name: LITERAL('do_action')
+        args[0]: Var#96
+        result: Var#97
+    Stmt_Jump
+        target: Block#24
+
+Block#24
+    Parent: Block#22
+    Parent: Block#23
+    Expr_Exit
+        expr: LITERAL('0')
+        result: Var#98
+    Terminal_Return
